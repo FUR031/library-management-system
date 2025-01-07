@@ -1,5 +1,5 @@
-The_Great_Gatsby Fiction F.Scott_Fitzgerald 101 12 No
-Dune_Science Fiction Frank_Herbert 102 10 No
-Gone_Girl Mystery/Thriller Gillian_Flynn 103 11 No
-Atomic_Habits Non-Fiction James_Clear 104 7 No
-The_Hobbit Fantasy J.R.R.Tolkien 105 15 No
+The_Great_Gatsby Fiction F.Scott_Fitzgerald 101 No
+Dune_Science Fiction Frank_Herbert 102 No
+Gone_Girl Mystery/Thriller Gillian_Flynn 103 No
+Atomic_Habits Non-Fiction James_Clear 104 No
+The_Hobbit Fantasy J.R.R.Tolkien 105 No
