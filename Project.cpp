@@ -8,7 +8,6 @@ string bookName[15] = {""};
 string bookAuthor[15] = {""};
 string bookGenre[15] = {""};
 short bookID[15] = {0.0};
-short bookCount[15] = {0};
 string issued[15] = {""};
 
 //User Login Authentication
@@ -167,7 +166,7 @@ void localBooks(){
         return;
     }
 	int i = 0;
-	while(bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){	//Store the book data from file in arrays using loop
+	while(bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){	//Store the book data from file in arrays using loop
     	i++;
     	if(i>=15)
 		break;
@@ -178,14 +177,12 @@ void localBooks(){
         <<setw(20)<<"Genre"
         <<setw(25)<<"Author"
         <<setw(10)<<"Book ID"
-        <<setw(12)<<"Book Count"
         <<setw(10)<<"Book Issued"<<endl;
 	for (int j=0;j<i;++j) {
      	cout<<left<<setw(25)<<bookName[j]
             <<setw(20)<<bookGenre[j]
             <<setw(25)<<bookAuthor[j]
             <<setw(10)<<bookID[j]
-            <<setw(12)<<bookCount[j]
             <<setw(10)<<issued[j] << endl;
 	}
 	bookData.close();	//Close File
@@ -241,7 +238,7 @@ void book_issued(){
 			cout<<"\nError! File does not exist.\n";
 		}
 		else{
-			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
+			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
 				if(bookID[i] == id){
 					j = i;
 				}
@@ -260,13 +257,11 @@ void book_issued(){
         				<<setw(20)<<"Genre"
         				<<setw(25)<<"Author"
 	        			<<setw(10)<<"Book ID"
-     				<<setw(12)<<"Book Count"
 	     	   		<<setw(10)<<"Book Issued"<<endl;
 	        	cout<<left<<setw(25)<<bookName[j]
      	       		<<setw(20)<<bookGenre[j]
           	  		<<setw(25)<<bookAuthor[j]
             			<<setw(10)<<bookID[j]
-	            		<<setw(12)<<bookCount[j]
 	     	       	<<setw(10)<<issued[j] << endl;
      		short choice = 0;
      		cout<<"\nIssuance Confirmation\n";
@@ -284,7 +279,7 @@ void book_issued(){
 				else{
      		     	short k = 0;
 					while(k < 15){
-						write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << bookCount[k] << " " << issued[k] << endl;
+						write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << issued[k] << endl;
 						k++;
 						if(bookName[k] == ""){
 								break;
@@ -324,7 +319,7 @@ void book_return(){
 			cout<<"\nError! File does not exist.\n";
 		}
 		else{
-			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
+			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
 				if(bookID[i] == id){
 					j = i;
 				}
@@ -343,13 +338,11 @@ void book_return(){
         				<<setw(20)<<"Genre"
         				<<setw(25)<<"Author"
 	        			<<setw(10)<<"Book ID"
-     				<<setw(12)<<"Book Count"
 	     	   		<<setw(10)<<"Book Issued"<<endl;
 	        	cout<<left<<setw(25)<<bookName[j]
      	       		<<setw(20)<<bookGenre[j]
           	  		<<setw(25)<<bookAuthor[j]
             			<<setw(10)<<bookID[j]
-	            		<<setw(12)<<bookCount[j]
 	     	       	<<setw(10)<<issued[j] << endl;
      		short choice = 0;
      		cout<<"\nReturn Confirmation\n";
@@ -367,7 +360,7 @@ void book_return(){
 				else{
      		     	short k = 0;
 					while(k < 15){
-						write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << bookCount[k] << " " << issued[k] << endl;
+						write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << issued[k] << endl;
 						k++;
 						if(bookName[k] == ""){
 								break;
@@ -388,41 +381,34 @@ void book_return(){
 
 //To update the data of a book
 void book_update(){
-	short choice = 0;
-	cout<<"\nDo you want to update a book?\n";
-	cout<<"Press 1 for Yes\n";
-	cout<<"Press 2 for No\n";
-	cout<<"Enter your choice:";
-	cin>>choice;
-	if(choice == 1){
-		ifstream read_bookData;
-		ofstream write_bookData;
-		short i = 0, choose = 0;
-		do{
-			localBooks();
-			short id = 0, j = 0;
-			cout<<"\nEnter Book ID:";
-			cin>>id;
-			short choice = 0;
-			cout<<"\nWhat do you want to update?\n";
-			cout<<"Press 1 for Book Name\n";
-			cout<<"Press 2 for Book Genre\n";
-			cout<<"Press 3 for Book Author\n";
-			cout<<"Press 4 for Book Count\n";
-			cout<<"Enter your choice:";
-			cin>>choice;
-			if(choice == 1){
-				string book_name;
-				cout<<"\nEnter book name:";
-				cin>>book_name;
-				read_bookData.open("Library.txt");
-				if(!read_bookData){
-					cout<<"\nError! File does not exist.\n";
-				}
-				else{
-					while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
-						if(bookID[i] == id){
-							j = i;
+
+	ifstream read_bookData;
+	ofstream write_bookData;
+	short i = 0, choose = 0;
+	do{
+		localBooks();
+		short id = 0, j = 0;
+		cout<<"\nEnter Book ID:";
+		cin>>id;
+		short choice = 0;
+		cout<<"\nWhat do you want to update?\n";
+		cout<<"Press 1 for Book Name\n";
+		cout<<"Press 2 for Book Genre\n";
+		cout<<"Press 3 for Book Author\n";
+		cout<<"Enter your choice:";
+		cin>>choice;
+		if(choice == 1){
+			string book_name;
+			cout<<"\nEnter book name:";
+			cin>>book_name;
+			read_bookData.open("Library.txt");
+			if(!read_bookData){
+				cout<<"\nError! File does not exist.\n";
+			}
+			else{
+				while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
+					if(bookID[i] == id){
+						j = i;
 						}
 						i++;
 						if(i>=15){
@@ -451,7 +437,7 @@ void book_update(){
 							bookName[j] = book_name;
      			     		short k = 0;
 							while(k < 15){
-								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << bookCount[k] << " " << issued[k] << endl;
+								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << issued[k] << endl;
 								k++;
 								if(bookName[k] == ""){
 										break;
@@ -474,7 +460,7 @@ void book_update(){
 					cout<<"\nError! File does not exist.\n";
 				}
 				else{
-					while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
+					while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
 						if(bookID[i] == id){
 							j = i;
 						}
@@ -505,7 +491,7 @@ void book_update(){
 							bookGenre[j] = book_genre;
      			     		short k = 0;
 							while(k < 15){
-								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << bookCount[k] << " " << issued[k] << endl;
+								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << issued[k] << endl;
 								k++;
 								if(bookName[k] == ""){
 										break;
@@ -528,7 +514,7 @@ void book_update(){
 					cout<<"\nError! File does not exist.\n";
 				}
 				else{
-					while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
+					while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
 						if(bookID[i] == id){
 							j = i;
 						}
@@ -559,7 +545,7 @@ void book_update(){
 							bookAuthor[j] = book_author;
      			     		short k = 0;
 							while(k < 15){
-								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << bookCount[k] << " " << issued[k] << endl;
+								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << issued[k] << endl;
 								k++;
 								if(bookName[k] == ""){
 										break;
@@ -573,67 +559,12 @@ void book_update(){
 					}
 				}
 			}
-			else if(choice == 4){
-				short book_count;
-				cout<<"\nEnter book count:";
-				cin>>book_count;
-				read_bookData.open("Library.txt");
-				if(!read_bookData){
-					cout<<"\nError! File does not exist.\n";
-				}
-				else{
-					while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
-						if(bookID[i] == id){
-							j = i;
-						}
-						i++;
-						if(i>=15){
-							break;
-						}
-					}
-				read_bookData.close();
-				}
-				if(bookCount[j] == book_count){
-					cout<<"\nThe book name is same.\n";
-				}
-				else{
-	     			short choice = 0;
-	     			cout<<"\nUpdate Confirmation\n";
-		     		cout<<"Press 1 to Accept\n";
-	     			cout<<"Press 2 to Decline\n";
-     				cout<<"Enter your choice:";
-			     	cin>>choice;
-     				if(choice == 1){
-	     		     	cout<<"\nThe book has been updated.\n";
-		     			write_bookData.open("Library.txt");
-	     				if(!write_bookData){
-	     					cout<<"\nError! File does not exit.\n";
-						}
-						else{
-							bookCount[j] = book_count;
-     			     		short k = 0;
-							while(k < 15){
-								write_bookData << bookName[k] << " " << bookGenre[k] << " " << bookAuthor[k] << " " << bookID[k] << " " << bookCount[k] << " " << issued[k] << endl;
-								k++;
-								if(bookName[k] == ""){
-										break;
-									}
-								}
-							write_bookData.close();
-						}
-					}
-					else{
-						cout<<"\nThe book couldn't be updated.'\n";
-					}
-				}
-			}
-     		cout<<"\nDo you want to again updata data of a book?\n";
-     		cout<<"Press 1 for Yes\n";
-     		cout<<"Press 2 for No\n";
-     		cout<<"Enter your choice:";
-     		cin>>choose;
-		}while(choose == 1);
-	}
+     	cout<<"\nDo you want to again updata data of a book?\n";
+     	cout<<"Press 1 for Yes\n";
+     	cout<<"Press 2 for No\n";
+     	cout<<"Enter your choice:";
+     	cin>>choose;
+	}while(choose == 1);
 }
 
 //To view or add new books in the library
@@ -643,7 +574,8 @@ void libraryBooks(){
 	cout<<"Press 1 to View\n";
 	cout<<"Press 2 to Add\n";
 	cout<<"Press 3 to Remove\n";
-	cout<<"Press 4 for None\n";
+	cout<<"Press 4 to Update\n";
+	cout<<"Press 5 for None\n";
 	cout<<"Enter your choice:";
 	cin>>choice;
 	if(choice == 1){
@@ -670,9 +602,6 @@ void libraryBooks(){
 			cout<<"Enter Book ID:";
 			cin>>num;
 			outbookData<<num<<" ";
-			cout<<"Enter Book Count:";
-			cin>>num;
-			outbookData<<num<<" ";
 			cout<<"Enter Book Issuance:";
 			cin>>bookdata;
 			outbookData<<bookdata<<endl;
@@ -694,7 +623,7 @@ void libraryBooks(){
 			cout<<"\nEnter Book ID:";
 			cin>>id;
 			short i = 0;
-			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>bookCount[i]>>issued[i]){
+			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
 				i++;
 			}
 			read_bookData.close();
@@ -709,8 +638,8 @@ void libraryBooks(){
 					check = true;
 				}
 				if(bookID[i] != id){
-					remove_bookData << bookName[i] << " " << bookGenre[i] << " " << bookAuthor[i] << " " << bookID[i] << " " ;
-					remove_bookData << bookCount[i] << " " << issued[i] << endl;
+					remove_bookData << bookName[i] << " " << bookGenre[i] << " " << bookAuthor[i] << " " << bookID[i] ;
+					remove_bookData << " " << issued[i] << endl;
 				}
 				i++;
 			}
@@ -728,6 +657,9 @@ void libraryBooks(){
 		}while(choice == 1);
 	}
 	else if(choice == 4){
+		book_update();	//To update the data of a book
+	}
+	else if(choice == 5){
 		return;	//To exit the function
 	}
 	else{
@@ -806,7 +738,6 @@ void libraryMatters(int user){
 		case 1:{
 			book_issued();	//To issue a book
 			book_return();	//To return a book
-			book_update();	//To update data of a book
 			//To calculate the fine
 			cout<<"\nDo you want to calculate the fine on a member?\n";
 			cout<<"Press 1 for Yes\n";
@@ -998,5 +929,6 @@ int main(){
 			cin	>>choice;
 		}while(choice == 1);
 	}
+	book_update();
 	return 0;
 }
