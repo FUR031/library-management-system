@@ -4,6 +4,8 @@
 
 using namespace std;
 
+#include<cstdlib>
+
 string bookName[15] = {""};
 string bookAuthor[15] = {""};
 string bookGenre[15] = {""};
@@ -30,7 +32,7 @@ bool login(short *user){
     		cin>>choose;
     		admin_login_verify:
     		if(choose == 1){
-    			admin_login.open("Admin Login.txt", ios::app | ios::in);	//Open File
+    			admin_login.open("Admin_Login.txt", ios::app | ios::in);	//Open File
     			if(!admin_login){	//To check for error while opening file
     				cout<<"\nError! file does not exist"<<endl;
     				return 0;
@@ -51,6 +53,7 @@ bool login(short *user){
 				//Login Result
 				if(check){
 					cout<<"\nLogin Successful!\n";
+					system("cls");
 					return 1;
 				}
 				else{
@@ -62,7 +65,7 @@ bool login(short *user){
 		}
 		//Add another member as an admin Portal
 		else if(choose==2){
-			admin_login.open("Admin Login.txt", ios::app | ios::in);	//Open File
+			admin_login.open("Admin_Login.txt", ios::app | ios::in);	//Open File
 			if(!admin_login){	//File Open Verification
     				cout<<"Error! file does not exist"<<endl;
     				return 0;
@@ -98,7 +101,7 @@ bool login(short *user){
     		cin>>choose;
     		if(choose==1){
     			member_login_verify:
-    			user_login.open("User Login.txt", ios::app | ios::in);	//Open File
+    			user_login.open("User_Login.txt", ios::app | ios::in);	//Open File
     			if(!user_login){	//File Open Verification
     				cout<<"Error! file does not exist"<<endl;
     				return 0;
@@ -119,6 +122,7 @@ bool login(short *user){
 				//Login Result
 				if(check){
 					cout<<"\nLogin Successful!\n";
+					system("cls");
 					return 1; 
 				}
 				else{
@@ -129,7 +133,7 @@ bool login(short *user){
 			user_login.close();
 		}
 		else if(choose==2){
-			user_login.open("User Login.txt", ios::app | ios::in);	//Open File
+			user_login.open("User_Login.txt", ios::app | ios::in);	//Open File
 			if(!user_login){	//File Open Verification
     				cout<<"\nError! file does not exist\n"<<endl;
     				return 0;
@@ -232,6 +236,7 @@ void book_issued(){
 		short id = 0, j = 0;
 		cout<<"Enter Book ID:";
 		cin>>id;
+		if(id > 0 && id < 200){
 		short i = 0;
 		read_bookData.open("Library.txt");
 		if(!read_bookData){
@@ -291,7 +296,11 @@ void book_issued(){
 			else{
 				cout<<"\nThe issuance of book has been declined.\n";
 			}
-     	}
+     	}}
+     	else{
+     		cout<<"\nInvalid Book ID!\n";
+     		return;
+		}
 	}
 	else{
 		return;
@@ -313,6 +322,7 @@ void book_return(){
 		short id = 0, j = 0;
 		cout<<"\nEnter Book ID:";
 		cin>>id;
+		if(id > 0 && id < 200){
 		short i = 0;
 		read_bookData.open("Library.txt");
 		if(!read_bookData){
@@ -372,7 +382,11 @@ void book_return(){
 			else{
 				cout<<"\nThe book couldn't be returned.'\n";
 			}
-     	}
+     	}}
+     	else{
+     		cout<<"\nInvlid Book ID!\n";
+     		return;
+		}
 	}
 	else{
 		return;
@@ -390,6 +404,7 @@ void book_update(){
 		short id = 0, j = 0;
 		cout<<"\nEnter Book ID:";
 		cin>>id;
+		if(id > 0 && id < 200){
 		short choice = 0;
 		cout<<"\nWhat do you want to update?\n";
 		cout<<"Press 1 for Book Name\n";
@@ -559,6 +574,7 @@ void book_update(){
 					}
 				}
 			}
+		}
      	cout<<"\nDo you want to again updata data of a book?\n";
      	cout<<"Press 1 for Yes\n";
      	cout<<"Press 2 for No\n";
@@ -606,13 +622,13 @@ void libraryBooks(){
 			cin>>bookdata;
 			outbookData<<bookdata<<endl;
 			//To ask if he wants to enter another
+			outbookData.close();	//Close the file
 			cout<<"\nDo you want to enter another book?\n";
 			cout<<"Press 1 for Yes\n";
 			cout<<"Press 2 for No\n";
 			cout<<"Enter your choice:";
 			cin>>choice;
 		}while(choice == 1);
-		outbookData.close();	//Close the file
 	}
 	else if(choice == 3){
 		short id = 0, choice = 0;
@@ -622,6 +638,7 @@ void libraryBooks(){
 		do{
 			cout<<"\nEnter Book ID:";
 			cin>>id;
+			if(id > 0 && id < 200){
 			short i = 0;
 			while(read_bookData>>bookName[i]>>bookGenre[i]>>bookAuthor[i]>>bookID[i]>>issued[i]){
 				i++;
@@ -648,6 +665,10 @@ void libraryBooks(){
 			}
 			else{
 				cout<<"\nBook not found.\n";
+			}}
+			else{
+				cout<<"\nInvalid Book ID!\n";
+				return;
 			}
 			cout<<"\nDo you want to remove another book?\n";
 			cout<<"Press 1 for Yes\n";
@@ -928,7 +949,6 @@ int main(){
 			cout	<<"Enter your choice:";
 			cin	>>choice;
 		}while(choice == 1);
-	}
-	book_update();
+	}	
 	return 0;
 }
