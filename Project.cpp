@@ -4,8 +4,6 @@
 
 using namespace std;
 
-#include<cstdlib>
-
 string bookName[15] = {""};
 string bookAuthor[15] = {""};
 string bookGenre[15] = {""};
@@ -204,7 +202,7 @@ void members_view(){
 	cin>>choice;
 	if(choice == 1){	//Show members list
 		ifstream members_data;
-		members_data.open("User Login.txt");	//Open File
+		members_data.open("User_Login.txt");	//Open File
 		if(!members_data){	//File Open Verification
 			cout<<"Error! File does not exist.\n";
 		}
@@ -930,6 +928,7 @@ int main(){
 	short user = 0, choice = 0;		//1 for admin, 2 for member
 	if(login(&user)){	//To validate the login and get return in user depending on admin or member
 		do{
+			system("cls");
 			switch(user){
 				case 1:	//Admin Portion
 					libraryBooks();			//To view or add a book and their respective data
