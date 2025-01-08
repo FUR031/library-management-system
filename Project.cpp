@@ -708,7 +708,7 @@ bool libraryMemberships(){
 		cout<<"|Membership Fees            $5             |\n";
 		cout<<"|Membership Duration        6 Months       |\n";
 		cout<<"|Return Days                30 days        |\n";
-		cout<<"|Fine Rate                  $0.5per_day    |\n";
+		cout<<"|Fine Rate                  $20 per_day    |\n";
 		cout<<"|__________________________________________|\n";	
 		cout<<"\nDo you want to become a member?"<<endl;	//Ask for willingness
 		cout<<"Press 1 for Yes\n";
