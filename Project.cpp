@@ -13,7 +13,7 @@ string issued[15] = {""};
 //User Login Authentication
 bool login(short *user){
 	string username, password, username_check, password_check;
-	short choice, choose;
+	short choice = 0, choose = 0;
 	fstream admin_login, user_login;		//Declare both admin and user file seperately to keep the user data organized
 	cout<<"___Login Authentication__\n";
 	cout<<"Press 1 for Admin\n";
@@ -21,6 +21,10 @@ bool login(short *user){
 	cout<<"Enter your choice:";
 	cin>>choice;
 	*user = choice;
+	if(choice != 1 && choice != 2){
+		cout<<"\nInvalid choice!\n";
+		return 0;
+	}
 	switch(choice){
     	case 1:
 		//Admin Login Authentication
@@ -28,6 +32,10 @@ bool login(short *user){
 		cout<<"Press 2 to Add Another Admin\n";
 		cout<<"Enter your choice:";
     		cin>>choose;
+    		if(choose != 1 && choose != 2){
+			cout<<"\nInvalid choice!\n";
+			return 0;
+		}
     		admin_login_verify:
     		if(choose == 1){
     			admin_login.open("Admin_Login.txt", ios::app | ios::in);	//Open File
@@ -97,6 +105,10 @@ bool login(short *user){
 		cout<<"Press 2 for SignUp\n";
 		cout<<"Enter your choice:";
     		cin>>choose;
+    		if(choose != 1 && choose != 2){
+			cout<<"\nInvalid choice!\n";
+			return 0;
+		}
     		if(choose==1){
     			member_login_verify:
     			user_login.open("User_Login.txt", ios::app | ios::in);	//Open File
@@ -200,6 +212,10 @@ void members_view(){
 	cout<<"Press 2 for No\n";
 	cout<<"Enter your choice:";
 	cin>>choice;
+	if(choice != 1 && choice != 2){
+		cout<<"\nInvalid choice!\n";
+		return;
+	}
 	if(choice == 1){	//Show members list
 		ifstream members_data;
 		members_data.open("User_Login.txt");	//Open File
@@ -227,6 +243,10 @@ void book_issued(){
 	cout<<"Press 2 for No\n";
 	cout<<"Enter your choice:";
 	cin>>choice;
+	if(choice != 1 && choice != 2){
+		cout<<"\nInvalid choice!\n";
+		return;
+	}
 	if(choice == 1){
 		ifstream read_bookData;
 		ofstream write_bookData;
@@ -393,7 +413,6 @@ void book_return(){
 
 //To update the data of a book
 void book_update(){
-
 	ifstream read_bookData;
 	ofstream write_bookData;
 	short i = 0, choose = 0;
